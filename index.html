@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+
+  <body ng-app="directoryApp" ng-style="{'background-color':'#CDCDD8'}">
+    <div class="container">
+      <div class="row" ng-style="{'background-color':'#211EA1', 'color':'white'}">
+        <h1  class="text-center">UF Directory App</h1>
+        <br></br>
+      </div>
+      <div class="row" ng-controller="ListingsController" ng-style="{'background-color':'#EAEBF3'}">
+      <br></br>
+        <div class="col-md-6">
+          <div class="input-group" id="searchBar">
+            <!-- 
+
+                Implement a way to filter through listings using the search bar 
+
+              -->
+            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
+            <input type="text" class="form-control" placeholder="Search" ng-model="e.name">
+          </div>
+          <div class="tableWrapper"  ng-style="{'background-color':'#FFFFFF'}">
+            <!-- table-striped -->
+            <table class="table table-hover clickable-row">
+              <tr>
+                <th>Code</th>
+                <th>Building Name</th>
+              </tr>
+              <tbody>
+                <tr ng-repeat="entry in listings | filter:e" ng-click="showDetails(listings.indexOf(entry))" ng-class="{selected: selected == $index}">
+                  <td>{{entry.code}}</td>
+                  <td>{{entry.name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6" >
+          <div class="jumbotron" ng-style="{'background-color':'#211EA1', 'color':'white'}">
+            <h2>Detailed Information</h2>
+             <h4>{{code}} | {{name}}</h4>
+             <span ng-bind="address"></span>
+             <br></br>
+             <span ng-bind="latitude"></span>
+             <span ng-bind="longitude"></span>
+             <!--div class="col-sm-4">
+             <div class="modal-body">
+                <map ng-if="render" center="[{{latitude}}, {{longitude}}]" zoom-control="true" zoom="8"></map>
+             </div>-->
+          </div>
+
+            <!-- 
+
+              Write an HTML form that adds new listings to the directory 
+              idea: button that opens a window/popup with fields code, name, and details & submit button
+            -->
+            <button ng-click="addListing()"  class="pull-right btn btn-default" type="button" >add</button>
+            <button ng-click="deleteListing()"  class="pull-right btn btn-default" type="button">remove</button>
+            <br></br>
+            <div class="pull-left">
+            <div><p>Code: </p><input type="text"  name="bCode" ng-model="buildingCode"></div>
+            <div><p>Name: </p><input type="text"  name="bName" ng-model="buildingName"></div>
+            </div>
+            <div class="pull-right">
+            <div><p>Address: </p><input type="text"  name="bName" ng-model="buildingAddress"></div>
+            <div><p>Latitude: </p><input type="text"  name="bName" ng-model="buildingLatitude"></div>
+            <div><p>Longitude: </p><input type="text"  name="bName" ng-model="buildingLongitude"></div>
+            <br></br>
+            </div>
+
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="listingController.js"></script>
+    <script src="listingFactory.js"></script>
+  </body>
+</html>
